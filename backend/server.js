@@ -2,8 +2,10 @@ const express = require("express");
 const cors = require("cors"); // Renamed for clarity
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser"); // Renamed for clarity
+const db = require("./config/db");
 
 dotenv.config();
+db()
 
 const app = express();
 const port = process.env.PORT  ;
@@ -14,8 +16,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-app.get("/", (req, res) => {
-    res.status(200).send("Hello World!");
+app.get("/", (req, res) => { 
+    res.status(200).send("Hello World!"); 
 });
 
 // Start Server
