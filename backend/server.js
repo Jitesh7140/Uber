@@ -4,6 +4,11 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser"); // Renamed for clarity
 const db = require("./config/db");
 
+
+const userRoutes = require('./routes/user.routes')
+const captainRouter = require('./routes/captain.route')
+
+
 dotenv.config();
 db()
 
@@ -14,11 +19,14 @@ const port = process.env.PORT  ;
 app.use(cors()); 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({extended:true}))
 
-// Routes
-app.get("/", (req, res) => { 
-    res.status(200).send("Hello World!"); 
-});
+// Routes  
+app.use('/api/user',userRoutes)
+app.use('/api/captain',captainRouter)
+
+
+
 
 // Start Server
 app.listen(port, () => {
