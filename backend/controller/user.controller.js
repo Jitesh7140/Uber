@@ -14,10 +14,15 @@ exports.registerUser = async (req, res) => {
       email,
       password,
     } = req.body;
-    console.log(firstname, lastname, email, password);
+    // console.log(firstname, lastname, email, password);
+
+    const isEmail = await userModel.findOne({ email});
+    if(isEmail){
+        return res.status(400).json({message:"Email already exists"});
+    }
 
     const hashedPassword = await userModel.hashPassword(password);
-    console.log(hashedPassword);
+    // console.log(hashedPassword);
 
     const user = await userService.createUser({
       firstname,
@@ -57,10 +62,8 @@ exports.loginUser = async (req, res) => {
     const token = user.generateAuthToken();
 
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      maxAge: 3600000,
-      sameSite: "strict",
+      httpOnly: false,
+      maxAge: 3600000,  
     });
 
     res

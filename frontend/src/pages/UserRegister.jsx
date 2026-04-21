@@ -1,25 +1,45 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios';
+import {UserDataContext} from '../context/UserContext';
 
 const UserRegister = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [registeredData , setRegisteredData] = useState({});
+  const [password, setPassword] = useState(''); 
+  const {user , setUser} = React.useContext(UserDataContext);
+
+  const navigate = useNavigate(); 
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setRegisteredData({
+    const newUser = {
       fullname: {
         firstname: firstName,
         lastname: lastName
       },
       email: email,
       password: password
-    });
+    };
 
-    console.log("Registered Data:" , registeredData);
+    // console.log("Registered Data:" , newUser);
+
+
+    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/user/register/`, newUser ,{withCredentials : true});
+    console.log(res)
+    if(res.status === 201) {
+
+      const data = res.data;
+      setUser(data.user);
+      localStorage.setItem("token" , JSON.stringify(data.token));
+
+      navigate("/home");
+    }
+
+
+
 
     // Form fields reset karein
     setFirstName('');
@@ -95,7 +115,7 @@ const UserRegister = () => {
 
           {/* Register Button (Image says 'Login', matching that text) */}
           <button className="w-full bg-black text-white font-medium py-3 rounded-lg mt-2 active:scale-[0.98] transition">
-            Login
+           Create Account
           </button>
         </form>
 

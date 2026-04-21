@@ -1,27 +1,51 @@
-import React from 'react'
-import {Routes , Route} from 'react-router-dom'
-import Home from './pages/Home'
-import UserLogin from './pages/UserLogin'
-import UserRegister from './pages/UserRegister'
-import CaptainLogin from './pages/CaptainLogin'
-import CaptainSignup from './pages/CaptainSignup' 
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Start from "./pages/Start";
+import UserLogin from "./pages/UserLogin";
+import UserRegister from "./pages/UserRegister";
+import CaptainLogin from "./pages/CaptainLogin";
+import CaptainSignup from "./pages/CaptainSignup";
+import Home from "./pages/Home";
+import UserProtectedWrapper from "./pages/UserProtectedWrapper";
+import UserLogout from "./pages/UserLogout";
+import CaptainLogout from "./pages/CaptainLogout";
+import CaptainHome from "./pages/CaptainHome";
+import CaptainProtectedWrapper from "./pages/CaptainProtectedWrapper";
 
 function App() {
   return (
-    <div>  
+    <div>
+      <Routes>
+        <Route path="/" element={<Start />} />
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/register" element={<UserRegister />} />
+        <Route path="/captain-login" element={<CaptainLogin />} />
+        <Route path="/captain-register" element={<CaptainSignup />} />
 
-    <Routes>
-      <Route path='/' element={<Home/> } />
-      <Route path='/login' element={<UserLogin/> } />
-      <Route path='/register' element={<UserRegister/> } />
-      <Route path='/captain-login' element={<CaptainLogin/> } />
-      <Route path='/captain-register' element={<CaptainSignup/> } />
+        <Route
+          path="/home"
+          element={
+            <UserProtectedWrapper>
+              <Home />
+            </UserProtectedWrapper>
+          }
+        />
+        <Route
+          path="/captain-home"
+          element={
+            <CaptainProtectedWrapper>
+              <CaptainHome />
+            </CaptainProtectedWrapper>
+          }
+        />
 
-    </Routes>
+        <Route path="/user/logout" element={<UserLogout />} />
+        <Route path="/captain/logout" element={<CaptainLogout />} />
 
 
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

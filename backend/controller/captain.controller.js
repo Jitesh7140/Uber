@@ -32,6 +32,10 @@ exports.registerCaptain = async (req, res) => {
 
     const token = captain.generateAuthToken()
 
+    res.cookie("token", token, { 
+      maxAge: 3600000, 
+    });
+
     res.status(201).json({ message: "User created successfully", token,captain});
   } catch (error) {
     console.error(error);
