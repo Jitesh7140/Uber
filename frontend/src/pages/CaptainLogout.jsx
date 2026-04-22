@@ -10,7 +10,7 @@ function CaptainLogout() {
       const token = localStorage.getItem('token')
  
       if (!token) {
-        navigate('/login')
+        navigate('/captain-login')
         return
       }
 
@@ -21,12 +21,12 @@ function CaptainLogout() {
 
         if (res.status === 200) {
           localStorage.removeItem('token')
-          navigate('/login')
+          navigate('/captain-login')
         }
       } catch (error) {
         console.error("Logout failed:", error) 
         localStorage.removeItem('token')
-        navigate('/login')
+        navigate('/captain-login')
       }
     }
 
