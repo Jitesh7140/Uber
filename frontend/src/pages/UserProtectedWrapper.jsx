@@ -16,7 +16,7 @@ function UserProtectedWrapper({ children }) {
       return; 
     }
 
-    console.log("token:" , token);
+    // console.log("token:" , token);
 
     // 2. Token hai toh user profile fetch karo
     // CHECK: Yahan route correct hai ya nahi? (captain vs user)
