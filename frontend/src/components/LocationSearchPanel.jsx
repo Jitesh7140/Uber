@@ -1,7 +1,9 @@
+// src/components/LocationSearchPanel.jsx
 import React from 'react'
 import { MapPin } from 'lucide-react'; 
 
-const LocationSearchPanel = ({ setPanelOpen, setVehiclePanelOpen }) => { // Prop name match kiya
+// confirmLocation ki jagah setVehiclePanelOpen use karein
+const LocationSearchPanel = ({ setPanelOpen, setVehiclePanelOpen }) => { 
 
     const locations = [
         "24B, Near Kapoor's cafe, Sheryians Coding School, Bhopal",
@@ -18,15 +20,15 @@ const LocationSearchPanel = ({ setPanelOpen, setVehiclePanelOpen }) => { // Prop
                         <div 
                             key={idx} 
                             onClick={() => {
-                                setPanelOpen(false); // Location list band karo
-                                setVehiclePanelOpen(true); // Vehicle panel open karo
+                                setPanelOpen(false); // 1. Location list band karo
+                                setVehiclePanelOpen(true); // 2. Vehicle Panel open karo
                             }} 
                             className='flex gap-3 border-2 p-3 border-gray-50 active:border-black rounded-xl items-center my-3 cursor-pointer'
                         >
                             <h2 className='bg-[#eee] h-8 w-8 flex items-center justify-center rounded-full shrink-0'>
                                 <MapPin size={18}/>
                             </h2>
-                            <h4 className='font-medium text-sm md:text-base flex-grow'>{elem}</h4>
+                            <h4 className='font-medium text-sm md:text-base grow'>{elem}</h4>
                         </div>
                     )
                 })

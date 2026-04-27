@@ -1,10 +1,12 @@
+// src/components/VehicleSelectionPanel.jsx
 import React from 'react';
-import { ArrowDown, User, ChevronDown } from 'lucide-react';
+import { ArrowDown, User } from 'lucide-react';
 import carImg from "../assets/car_Img.png"
 import BikeImg from "../assets/bike_Img.webp"
 import AutoImg from "../assets/auto_Img.webp"
 
-const VehicleSelectionPanel = ({ setVehiclePanelOpen }) => {
+// confirmRide handler received here
+const VehicleSelectionPanel = ({ setVehiclePanelOpen, confirmRide }) => {
 
     const rides = [
         {
@@ -20,7 +22,7 @@ const VehicleSelectionPanel = ({ setVehiclePanelOpen }) => {
         {
             id: 2,
             name: "Moto",
-            image: BikeImg,
+            image:BikeImg,
             seats: 1,
             away: 3,
             time: "15:24",
@@ -29,7 +31,7 @@ const VehicleSelectionPanel = ({ setVehiclePanelOpen }) => {
         },
         {
             id: 3,
-            name: "Auto",
+            name: "Premier",
             image: AutoImg,
             seats: 4,
             away: 4,
@@ -42,7 +44,6 @@ const VehicleSelectionPanel = ({ setVehiclePanelOpen }) => {
     return (
         <div className='flex flex-col relative h-full'>
             
-            {/* Close/Back Button - Yeh panel ko band karne ke kaam aayega */}
             <h5 
                 onClick={() => setVehiclePanelOpen(false)} 
                 className='p-1 text-center w-[93%] absolute top-0 z-10 cursor-pointer'
@@ -52,19 +53,20 @@ const VehicleSelectionPanel = ({ setVehiclePanelOpen }) => {
 
             <h3 className='text-2xl font-semibold mb-5 mt-8'>Choose a vehicle</h3>
 
-            {/* Ride List */}
             <div className=' grow overflow-y-auto'>
                 {rides.map(ride => (
                     <div 
                         key={ride.id} 
+                        // Modified onClick to call confirmRide handler
+                        onClick={() => {
+                            setVehiclePanelOpen(false); // Close this panel
+                            confirmRide(); // Trigger looking for driver panel
+                        }}
                         className='flex gap-4 border-2 p-3 border-gray-100 active:border-black rounded-xl items-center my-4 cursor-pointer'
                     >
-                        {/* Vehicle Image */}
                         <div className='w-20 shrink-0'>
                             <img src={ride.image} alt={ride.name} className='w-full' />
                         </div>
-
-                        {/* Details */}
                         <div className=' grow'>
                             <div className='flex items-center gap-2'>
                                 <h4 className='text-xl font-medium'>{ride.name}</h4>
@@ -80,8 +82,6 @@ const VehicleSelectionPanel = ({ setVehiclePanelOpen }) => {
                             </div>
                             <p className='text-sm text-gray-600'>{ride.desc}</p>
                         </div>
-
-                        {/* Price */}
                         <div className='shrink-0'>
                             <h4 className='text-xl font-semibold'>{ride.price}</h4>
                         </div>
@@ -89,7 +89,7 @@ const VehicleSelectionPanel = ({ setVehiclePanelOpen }) => {
                 ))}
             </div>
 
-           
+             
 
         </div>
     );

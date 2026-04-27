@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import LocationSearchPanel from "../components/LocationSearchPanel";
+import LookingForDriver from "../components/LookingForDriver";
 import VehicleSelectionPanel from "../components/VehicleSelectionPanel";
 import { ArrowDown } from "lucide-react";
 
 function Home() {
   const [panelOpen, setPanelOpen] = useState(false);
   const [vehiclePanelOpen, setVehiclePanelOpen] = useState(false);
+  const [lookingForDriverOpen, setLookingForDriverOpen] = useState(false); // Nayi state 
 
+  // Input states
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
 
@@ -15,6 +18,13 @@ function Home() {
     e.preventDefault();
     setPanelOpen(false);
     setVehiclePanelOpen(true);
+  };
+  
+
+  // Handler to open Panel 3 (Looking for driver)
+  const confirmRideHandler = () => {
+    setVehiclePanelOpen(false); // Close Vehicle panel
+    setLookingForDriverOpen(true); // Open Looking panel
   };
 
   return (
@@ -95,7 +105,6 @@ function Home() {
               />
             </div>
           )}
-          
         </div>
       </motion.div>
 
@@ -104,11 +113,25 @@ function Home() {
         className="absolute bottom-0 w-full bg-white z-30 rounded-t-3xl p-6 h-[75%] shadow-2xl"
         initial={{ y: "100%" }}
         animate={{ y: vehiclePanelOpen ? "0%" : "100%" }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+        transition={{ duration: 0.5 }}
       >
         <VehicleSelectionPanel
           setVehiclePanelOpen={setVehiclePanelOpen}
-          setPanelOpen={setPanelOpen}
+          confirmRide={confirmRideHandler} // Pass confirmRide handler
+        />
+      </motion.div>
+
+      {/* --- PANEL 3: Looking for Driver (Naya) --- */}
+      <motion.div
+        className="absolute bottom-0 w-full bg-white z-40 rounded-t-3xl p-6 h-[75%] shadow-2xl"
+        initial={{ y: "100%" }}
+        animate={{ y: lookingForDriverOpen ? "0%" : "100%" }}
+        transition={{ duration: 0.5 }}
+      >
+        <LookingForDriver
+          setLookingForDriverOpen={setLookingForDriverOpen}
+          pickup={pickup} // Optional: Pass state if you want dynamic data
+          destination={destination} // Optional
         />
       </motion.div>
     </div>

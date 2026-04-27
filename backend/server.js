@@ -15,10 +15,18 @@ db()
 const app = express();
 const port = process.env.PORT  ;
 
+// app.use((req, res, next) => {
+//   console.log("Origin:", req.headers.origin);
+//   console.log("IP:", req.ip);
+//   console.log("URL:", req.originalUrl);
+//   console.log("----------------------");
+//   next();
+// });
+
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:5173',  
-    credentials: true  
+    origin: true,
+  credentials: true 
 })); 
 app.use(express.json());
 app.use(cookieParser());
