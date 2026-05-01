@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import LocationSearchPanel from "../components/LocationSearchPanel";
-import LookingForDriver from "../components/LookingForDriver";
+import ConfirmRide from "../components/ConfirmRide";
 import VehicleSelectionPanel from "../components/VehicleSelectionPanel";
+import Co from "../components/WaitForDriver";
 import { ArrowDown } from "lucide-react";
 
 function Home() {
   const [panelOpen, setPanelOpen] = useState(false);
   const [vehiclePanelOpen, setVehiclePanelOpen] = useState(false);
-  const [lookingForDriverOpen, setLookingForDriverOpen] = useState(false); // Nayi state 
+  const [ConfirmRideOpen, setConfirmRideOpen] = useState(false); // Nayi state 
 
   // Input states
   const [pickup, setPickup] = useState("");
@@ -24,7 +25,7 @@ function Home() {
   // Handler to open Panel 3 (Looking for driver)
   const confirmRideHandler = () => {
     setVehiclePanelOpen(false); // Close Vehicle panel
-    setLookingForDriverOpen(true); // Open Looking panel
+    setConfirmRideOpen(true); // Open Looking panel
   };
 
   return (
@@ -125,11 +126,25 @@ function Home() {
       <motion.div
         className="absolute bottom-0 w-full bg-white z-40 rounded-t-3xl p-6 h-[75%] shadow-2xl"
         initial={{ y: "100%" }}
-        animate={{ y: lookingForDriverOpen ? "0%" : "100%" }}
+        animate={{ y: ConfirmRideOpen ? "0%" : "100%" }}
         transition={{ duration: 0.5 }}
       >
-        <LookingForDriver
-          setLookingForDriverOpen={setLookingForDriverOpen}
+        <ConfirmRide
+          setConfirmRideOpen={setConfirmRideOpen}
+          pickup={pickup} // Optional: Pass state if you want dynamic data
+          destination={destination} // Optional
+        />
+      </motion.div>
+
+      {/* --- PANEL 4: Looking for Driver (Naya) --- */}
+      <motion.div
+        className="absolute bottom-0 w-full bg-white z-40 rounded-t-3xl p-6 h-[75%] shadow-2xl"
+        initial={{ y: "100%" }}
+        animate={{ y: ConfirmRideOpen ? "0%" : "100%" }}
+        transition={{ duration: 0.5 }}
+      >
+        <ConfirmRide
+          setConfirmRideOpen={setConfirmRideOpen}
           pickup={pickup} // Optional: Pass state if you want dynamic data
           destination={destination} // Optional
         />
