@@ -7,6 +7,7 @@ const LocationSearchPanel = ({ setPanelOpen, setVehiclePanelOpen }) => {
 
     const locations = [
         "24B, Near Kapoor's cafe, Sheryians Coding School, Bhopal",
+        "24B, Near Kapoor's cafe, Sheryians Coding School, Bhopal",
         "22C, Near Sharma's point, Sheryians Coding School, Bhopal",
         "10A, Near Malviya Nagar, Sheryians Coding School, Bhopal",
         "18D, Near Indra Nagar, Sheryians Coding School, Bhopal"
