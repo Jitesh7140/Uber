@@ -14,7 +14,7 @@ export default function LookingForDriver() {
             <h3 className='text-2xl font-semibold mb-5 mt-8'>Choose a vehicle</h3>
 
             <div className=' grow overflow-y-auto'>
-                {rides.map(ride => (
+                {rides.map(ride => ( 
                     <div
                         key={ride.id}
                         // Modified onClick to call confirmRide handler
